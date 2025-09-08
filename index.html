@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Online Update – Latest Jobs, Admit Card, Results</title>
+  <meta name="description" content="Sarkari Result, Latest Jobs, Admit Card, Admission, Scholarship – Fast updates with smooth animations." />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- GSAP + ScrollTrigger for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <!-- Icon set (Tabler Icons) -->
+  <link rel="stylesheet" href="https://unpkg.com/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"/>
+  <style>
+    /* Subtle glass effect */
+    .glass {background: rgba(255,255,255,0.65); backdrop-filter: blur(8px);} 
+    .card:hover {transform: translateY(-4px);} 
+    .shadow-smooth { box-shadow: 0 10px 25px rgba(0,0,0,.08);} 
+    .gradient-bar { background: linear-gradient(90deg, #2563eb, #22c55e, #f59e0b); height: 3px; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-100 text-slate-800">
+  <!-- Top Bar -->
+  <header class="w-full bg-blue-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-sm">
+      <span class="inline-flex items-center font-semibold">
+        <i class="ti ti-bolt mr-2 text-lg"></i> Online Update STM — तेज़ और भरोसेमंद अपडेट
+      </span>
+      <span class="ml-auto flex items-center gap-2">
+        <a href="#" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">About</a>
+        <a href="#" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">Privacy</a>
+        <a href="#" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">Contact</a>
+      </span>
+    </div>
+    <div class="gradient-bar"></div>
+  </header>  <!-- Hero / Search -->  <section class="max-w-7xl mx-auto px-4 py-6">
+    <div class="glass rounded-2xl shadow-smooth p-4 md:p-6">
+      <div class="flex flex-col md:flex-row md:items-center gap-4">
+        <div class="flex items-center gap-3">
+          <div class="h-12 w-12 rounded-2xl bg-blue-600 text-white grid place-items-center"><i class="ti ti-news text-2xl"></i></div>
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold">Bihar/India Sarkari Updates</h1>
+            <p class="text-slate-600 text-sm">Jobs • Admit Card • Result • Admission • Scholarship • University Update</p>
+          </div>
+        </div>
+        <div class="md:ml-auto w-full md:w-96">
+          <label class="relative block">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><i class="ti ti-search"></i></span>
+            <input id="searchInput" placeholder="खोजें: Jobs, Board, Exam…" class="w-full pl-10 pr-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none" />
+          </label>
+        </div>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-2 text-sm">
+        <a class="px-3 py-1 rounded-full bg-blue-600 text-white hover:opacity-90" href="#">YouTube</a>
+        <a class="px-3 py-1 rounded-full bg-green-600 text-white hover:opacity-90" href="#">WhatsApp</a>
+        <a class="px-3 py-1 rounded-full bg-cyan-600 text-white hover:opacity-90" href="#">Telegram</a>
+      </div>
+    </div>
+  </section>  <!-- Grid Sections -->  <main class="max-w-7xl mx-auto px-4 pb-16">
+    <div id="grid" class="grid lg:grid-cols-3 gap-6">
+      <!-- Cards will be injected by JS from DATA below -->
+    </div>
+  </main>  <footer class="border-t py-8 text-center text-sm text-slate-600">
+    <p>© <span id="year"></span> onlineupdatestm – Netlify + GitHub</p>
+  </footer>  <!-- ===== Editable DATA (Update in GitHub any time) ===== -->  <script>
+    // हर सेक्शन की सूची यहाँ एडिट करें — केवल इस JSON को बदलना है
+    const SITE_DATA = [
+      { title: 'Latest Update', icon: 'ti-bell-ringing', color: 'from-blue-500 to-cyan-500', items: [
+        { text: 'CSBC Constable 2025: Re-Open Application', link: '#' },
+        { text: 'Bihar Board 10th Scholarship 2024-25', link: '#' },
+        { text: 'EPFO SSA Result 2025 जारी', link: '#' },
+        { text: 'Railway Group D PET Schedule', link: '#' },
+      ]},
+      { title: 'Latest Jobs', icon: 'ti-briefcase', color: 'from-emerald-500 to-lime-500', items: [
+        { text: 'BSSC Inter Level 2025 – Apply Online', link: '#' },
+        { text: 'SSC GD 2025 Notification', link: '#' },
+        { text: 'UP Police SI 2025', link: '#' },
+        { text: 'Bank PO 2025 – Multiple Banks', link: '#' },
+      ]},
+      { title: 'Sarkari Yojana', icon: 'ti-report-money', color: 'from-amber-500 to-orange-500', items: [
+        { text: 'PM Kisan eKYC Update', link: '#' },
+        { text: 'Bihar Post Matric Scholarship', link: '#' },
+        { text: 'Ladli Yojana 2025', link: '#' },
+        { text: 'Ayushman Card: New List', link: '#' },
+      ]},
+      { title: 'Admit Card', icon: 'ti-id', color: 'from-fuchsia-500 to-pink-500', items: [
+        { text: 'BPSC Teacher Admit Card 2025', link: '#' },
+        { text: 'Railway ALP City/Date Out', link: '#' },
+        { text: 'SSC CGL Tier-1 Admit Card', link: '#' },
+        { text: 'CTET July 2025 Admit Card', link: '#' },
+      ]},
+      { title: 'Results', icon: 'ti-award', color: 'from-indigo-500 to-blue-500', items: [
+        { text: 'BTEUP Result 2024-25', link: '#' },
+        { text: 'IBPS PO Mains Result', link: '#' },
+        { text: 'CUET UG Scorecard', link: '#' },
+        { text: 'Railway NTPC Final List', link: '#' },
+      ]},
+      { title: 'Admission', icon: 'ti-school', color: 'from-teal-500 to-sky-500', items: [
+        { text: 'Bihar ITI Admission 2025', link: '#' },
+        { text: 'UG/PG Admission – DU, PU', link: '#' },
+        { text: 'JEE Main Session 1 Registration', link: '#' },
+        { text: 'NEET UG 2025 Info', link: '#' },
+      ]},
+      { title: 'Scholarship', icon: 'ti-currency-rupee', color: 'from-rose-500 to-red-500', items: [
+        { text: 'NSP Scholarship 2025', link: '#' },
+        { text: 'Pre/Post Matric Bihar', link: '#' },
+        { text: 'E-Kalyan Jharkhand', link: '#' },
+        { text: 'UP Scholarship Status', link: '#' },
+      ]},
+      { title: 'University Update', icon: 'ti-building-bank', color: 'from-sky-500 to-cyan-500', items: [
+        { text: 'Bihar University Exam Programme', link: '#' },
+        { text: 'Patliputra Univ Result', link: '#' },
+        { text: 'LNMU Part-3 Admit Card', link: '#' },
+        { text: 'Magadh Univ Notice', link: '#' },
+      ]},
+      { title: 'Others', icon: 'ti-dots', color: 'from-slate-500 to-slate-700', items: [
+        { text: 'Aadhaar/ PAN Update', link: '#' },
+        { text: 'Certificate Download', link: '#' },
+        { text: 'E-KYC/ KYC Guide', link: '#' },
+        { text: 'Helpdesk/ FAQ', link: '#' },
+      ]}
+    ];
+  </script>  <!-- ===== Renderer + Animations ===== -->  <script>
+    const grid = document.getElementById('grid');
+
+    function makeCard(section){
+      const card = document.createElement('section');
+      card.className = 'card glass rounded-2xl p-4 md:p-5 shadow-smooth border border-white/40';
+      card.innerHTML = `
+        <header class="flex items-center gap-3 mb-3">
+          <div class="h-10 w-10 rounded-xl text-white grid place-items-center bg-gradient-to-r ${section.color}">
+            <i class="ti ${section.icon}"></i>
+          </div>
+          <h2 class="text-lg font-bold">${section.title}</h2>
+        </header>
+        <ul class="space-y-2 text-sm" role="list">
+          ${section.items.map(i => `
+            <li class="group">
+              <a class="flex items-start gap-2 p-2 rounded-lg hover:bg-slate-100/80" href="${i.link}">
+                <span class="mt-0.5 text-slate-400 group-hover:text-blue-600"><i class="ti ti-chevron-right"></i></span>
+                <span class="leading-snug">${i.text}</span>
+              </a>
+            </li>`).join('')}
+        </ul>
+        <div class="pt-3 flex justify-end">
+          <a href="#" class="text-blue-600 text-sm hover:underline">View More</a>
+        </div>
+      `;
+      return card;
+    }
+
+    // Render cards
+    SITE_DATA.forEach(sec => grid.appendChild(makeCard(sec)));
+
+    // Live search (filters list items)
+    document.getElementById('searchInput').addEventListener('input', (e)=>{
+      const q = e.target.value.toLowerCase();
+      const items = grid.querySelectorAll('li');
+      items.forEach(li => {
+        const text = li.textContent.toLowerCase();
+        li.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== Animations =====
+    window.addEventListener('load', () => {
+      if (window.gsap) {
+        const tl = gsap.timeline();
+        tl.from('header .gradient-bar', {scaleX:0, transformOrigin:'left', duration:0.6, ease:'power2.out'});
+        tl.from('header .glass, header .h-12', {opacity:0, y:-12, duration:0.4, stagger:0.05}, '<');
+
+        gsap.from('.card', {
+          opacity: 0, y: 24, duration: 0.6, stagger: 0.08, ease: 'power2.out',
+          scrollTrigger: { trigger: '.card', start: 'top 85%' }
+        });
+      }
+    });
+  </script></body>
+</html>
