@@ -2,8 +2,8 @@
 <html lang="hi">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DL Sarver 999</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Online Update – Latest Jobs, Admit Card, Results</title>
   <meta name="description" content="Sarkari Result, Latest Jobs, Admit Card, Admission, Scholarship – Fast updates with smooth animations." />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,29 +22,45 @@
     @keyframes gradientMove {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     body {overflow-x:hidden;}
     .bg-animated {
-      background: radial-gradient(circle at 20% 20%, rgba(37,99,235,0.3), transparent 40%),
-                  radial-gradient(circle at 80% 30%, rgba(16,185,129,0.3), transparent 40%),
-                  radial-gradient(circle at 50% 80%, rgba(236,72,153,0.3), transparent 40%);
-      background-color:#f8fafc;
-      animation: pulsebg 10s ease-in-out infinite alternate;
+      background: linear-gradient(-45deg, #000000, #00ff00, #ff0000, #ffffff);
+      background-size: 400% 400%;
+      animation: smoothbg 12s ease infinite;
     }
-    @keyframes pulsebg {
-      0% {background-size:100% 100%;}
-      100% {background-size:120% 120%;}
+    @keyframes smoothbg {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
+    /* Loader */
+    #loader {position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#0f172a;color:white;}
+    .man-container {position:relative;width:120px;height:120px;}
+    .man {width:50px;height:80px;background:#38bdf8;border-radius:10px;position:absolute;bottom:0;left:35px;}
+    .computer {width:70px;height:50px;background:#1e293b;border-radius:6px;position:absolute;top:10px;left:25px;}
+    .server {width:20px;height:60px;background:#4ade80;position:absolute;right:-30px;bottom:0;border-radius:4px;animation:send 1.5s infinite;}
+    @keyframes send {0%{opacity:1;transform:translateY(0)}50%{opacity:0.3;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}
   </style>
 </head>
 <body class="min-h-screen bg-animated text-slate-800">
+  <!-- Loader -->
+  <div id="loader">
+    <div class="man-container">
+      <div class="computer"></div>
+      <div class="man"></div>
+      <div class="server"></div>
+    </div>
+  </div>
+
   <!-- Top Bar -->
   <header class="w-full bg-gradient-to-r from-blue-700 via-purple-600 to-pink-600 text-white shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-sm animate-pulse">
       <span class="inline-flex items-center font-semibold">
-        <i class="ti ti-bolt mr-2 text-lg"></i> 🌐DL Sarver 999
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Google-flutter-logo.svg" alt="Logo" class="h-6 w-6 mr-2"/>
+        Online Update STM — तेज़ और भरोसेमंद अपडेट
       </span>
       <span class="ml-auto flex items-center gap-2">
-        <a href="#" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">About</a>
-        <a href="#" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">Privacy</a>
-        <a href="#" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">Contact</a>
+        <a href="about.html" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">About</a>
+        <a href="privacy.html" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">Privacy</a>
+        <a href="contact.html" class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20">Contact</a>
       </span>
     </div>
     <div class="gradient-bar"></div>
@@ -78,9 +94,7 @@
 
   <!-- Grid Sections -->
   <main class="max-w-7xl mx-auto px-4 pb-16">
-    <div id="grid" class="grid lg:grid-cols-3 gap-6">
-      <!-- Cards will be injected by JS from DATA below -->
-    </div>
+    <div id="grid" class="grid lg:grid-cols-3 gap-6"></div>
   </main>
 
   <footer class="border-t py-8 text-center text-sm text-slate-600">
@@ -191,6 +205,9 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     window.addEventListener('load', () => {
+      // Hide loader
+      document.getElementById('loader').style.display = 'none';
+
       if (window.gsap) {
         const tl = gsap.timeline();
         tl.from('header .gradient-bar', {scaleX:0, transformOrigin:'left', duration:0.6, ease:'power2.out'});
