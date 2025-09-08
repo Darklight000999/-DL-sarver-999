@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="hi">
+<!DOCTYPE html>
+<html lang="hi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,18 +12,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
   <!-- Icon set (Tabler Icons) -->
   <link rel="stylesheet" href="https://unpkg.com/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"/>
+  <!-- Social Media Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    /* Subtle glass effect */
     .glass {background: rgba(255,255,255,0.65); backdrop-filter: blur(8px);} 
     .card:hover {transform: translateY(-4px);} 
     .shadow-smooth { box-shadow: 0 10px 25px rgba(0,0,0,.08);} 
-    .gradient-bar { background: linear-gradient(90deg, #2563eb, #22c55e, #f59e0b); height: 3px; }
+    .gradient-bar { height: 3px; background: linear-gradient(270deg,#f59e0b,#22c55e,#2563eb,#ec4899,#a855f7,#f59e0b); background-size:1200% 1200%; animation: gradientMove 12s ease infinite; }
+    @keyframes gradientMove {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    body {overflow-x:hidden;}
+    .bg-animated {
+      background: radial-gradient(circle at 20% 20%, rgba(37,99,235,0.3), transparent 40%),
+                  radial-gradient(circle at 80% 30%, rgba(16,185,129,0.3), transparent 40%),
+                  radial-gradient(circle at 50% 80%, rgba(236,72,153,0.3), transparent 40%);
+      background-color:#f8fafc;
+      animation: pulsebg 10s ease-in-out infinite alternate;
+    }
+    @keyframes pulsebg {
+      0% {background-size:100% 100%;}
+      100% {background-size:120% 120%;}
+    }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-100 text-slate-800">
+<body class="min-h-screen bg-animated text-slate-800">
   <!-- Top Bar -->
-  <header class="w-full bg-blue-700 text-white">
-    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-sm">
+  <header class="w-full bg-gradient-to-r from-blue-700 via-purple-600 to-pink-600 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-3 text-sm animate-pulse">
       <span class="inline-flex items-center font-semibold">
         <i class="ti ti-bolt mr-2 text-lg"></i> Online Update STM — तेज़ और भरोसेमंद अपडेट
       </span>
@@ -33,7 +48,10 @@
       </span>
     </div>
     <div class="gradient-bar"></div>
-  </header>  <!-- Hero / Search -->  <section class="max-w-7xl mx-auto px-4 py-6">
+  </header>
+
+  <!-- Hero / Search -->
+  <section class="max-w-7xl mx-auto px-4 py-6">
     <div class="glass rounded-2xl shadow-smooth p-4 md:p-6">
       <div class="flex flex-col md:flex-row md:items-center gap-4">
         <div class="flex items-center gap-3">
@@ -50,20 +68,27 @@
           </label>
         </div>
       </div>
-      <div class="mt-4 flex flex-wrap gap-2 text-sm">
-        <a class="px-3 py-1 rounded-full bg-blue-600 text-white hover:opacity-90" href="#">YouTube</a>
-        <a class="px-3 py-1 rounded-full bg-green-600 text-white hover:opacity-90" href="#">WhatsApp</a>
-        <a class="px-3 py-1 rounded-full bg-cyan-600 text-white hover:opacity-90" href="#">Telegram</a>
+      <div class="mt-4 flex flex-wrap gap-3 text-sm">
+        <a class="px-4 py-2 rounded-full bg-red-600 text-white hover:opacity-90 flex items-center gap-2" href="#"><i class="fab fa-youtube"></i> YouTube</a>
+        <a class="px-4 py-2 rounded-full bg-green-600 text-white hover:opacity-90 flex items-center gap-2" href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a class="px-4 py-2 rounded-full bg-sky-600 text-white hover:opacity-90 flex items-center gap-2" href="#"><i class="fab fa-telegram"></i> Telegram</a>
       </div>
     </div>
-  </section>  <!-- Grid Sections -->  <main class="max-w-7xl mx-auto px-4 pb-16">
+  </section>
+
+  <!-- Grid Sections -->
+  <main class="max-w-7xl mx-auto px-4 pb-16">
     <div id="grid" class="grid lg:grid-cols-3 gap-6">
       <!-- Cards will be injected by JS from DATA below -->
     </div>
-  </main>  <footer class="border-t py-8 text-center text-sm text-slate-600">
+  </main>
+
+  <footer class="border-t py-8 text-center text-sm text-slate-600">
     <p>© <span id="year"></span> onlineupdatestm – Netlify + GitHub</p>
-  </footer>  <!-- ===== Editable DATA (Update in GitHub any time) ===== -->  <script>
-    // हर सेक्शन की सूची यहाँ एडिट करें — केवल इस JSON को बदलना है
+  </footer>
+
+  <!-- ===== Editable DATA (Update in GitHub any time) ===== -->
+  <script>
     const SITE_DATA = [
       { title: 'Latest Update', icon: 'ti-bell-ringing', color: 'from-blue-500 to-cyan-500', items: [
         { text: 'CSBC Constable 2025: Re-Open Application', link: '#' },
@@ -120,7 +145,10 @@
         { text: 'Helpdesk/ FAQ', link: '#' },
       ]}
     ];
-  </script>  <!-- ===== Renderer + Animations ===== -->  <script>
+  </script>
+
+  <!-- ===== Renderer + Animations ===== -->
+  <script>
     const grid = document.getElementById('grid');
 
     function makeCard(section){
@@ -149,10 +177,8 @@
       return card;
     }
 
-    // Render cards
     SITE_DATA.forEach(sec => grid.appendChild(makeCard(sec)));
 
-    // Live search (filters list items)
     document.getElementById('searchInput').addEventListener('input', (e)=>{
       const q = e.target.value.toLowerCase();
       const items = grid.querySelectorAll('li');
@@ -162,10 +188,8 @@
       });
     });
 
-    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ===== Animations =====
     window.addEventListener('load', () => {
       if (window.gsap) {
         const tl = gsap.timeline();
@@ -178,5 +202,6 @@
         });
       }
     });
-  </script></body>
+  </script>
+</body>
 </html>
