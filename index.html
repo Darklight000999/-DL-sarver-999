@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DarkLight000999 — Cybersecurity</title>
+  <style>
+    /* ==== Base Styles ==== */
+    :root {
+      --bg: #05070b;
+      --text: #fff;
+      --card1: #0a1217;
+      --border: rgba(255,255,255,.2);
+      --grad-1: linear-gradient(135deg,#00ffa6,#00d2ff);
+      --grad-2: linear-gradient(135deg,#ff3df5,#ff8a00);
+      --shadow: 0 0 20px rgba(0,255,166,.4);
+    }
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+    h1,h2,h3 {
+      margin:0 0 15px;
+      background: var(--grad-1);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    section {padding:60px 20px;max-width:1100px;margin:auto;}
+
+    /* ==== Matrix Background ==== */
+    canvas#matrix {
+      position: fixed;
+      top:0;left:0;
+      width:100%;height:100%;
+      z-index:-1;
+      background:#000;
+    }
+
+    /* ==== Sticker Menu ==== */
+    .sticker-menu {
+      position: fixed;
+      top:20px;
+      left:20px;
+      z-index: 1000;
+    }
+    .sticker-btn {
+      width:55px;height:55px;
+      border-radius:50%;
+      border:none;
+      background: var(--grad-1);
+      color:#fff;
+      font-size:24px;
+      cursor:pointer;
+      box-shadow: var(--shadow);
+    }
+    .sticker-options {
+      display:none;
+      flex-direction:column;
+      gap:8px;
+      margin-top:10px;
+    }
+    .sticker-options a,
+    .sticker-options button {
+      background: var(--card1);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:8px 12px;
+      color: var(--text);
+      text-decoration:none;
+      cursor:pointer;
+      text-align:left;
+      transition:transform .2s;
+    }
+    .sticker-options a:hover,
+    .sticker-options button:hover {
+      transform:scale(1.05);
+    }
+    .sticker-menu.open .sticker-options {display:flex;}
+
+    /* ==== Cards ==== */
+    .grid {display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+    .card {
+      background: var(--card1);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:20px;
+      transition:.3s;
+    }
+    .card:hover {transform:translateY(-5px);box-shadow: var(--shadow);}
+
+    /* ==== Stats ==== */
+    .stats {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+    .stat {
+      background: var(--card1);
+      border:1px solid var(--border);
+      border-radius:14px;
+      text-align:center;
+      padding:20px;
+    }
+    .num {
+      font-size:30px;
+      font-weight:bold;
+      background: var(--grad-2);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    /* ==== Buttons ==== */
+    .btn {
+      padding:12px 18px;
+      border:none;
+      border-radius:12px;
+      font-weight:bold;
+      background: var(--grad-1);
+      color:#000;
+      cursor:pointer;
+    }
+    .btn:hover {background: var(--grad-2);color:#fff;}
+
+    /* ==== Contact Form ==== */
+    form {max-width:500px;margin:auto;}
+    .form-step {display:none;}
+    .form-step.active {display:block;}
+    input,textarea {
+      width:100%;padding:10px;margin:8px 0;
+      border:1px solid var(--border);
+      border-radius:8px;
+      background:#0a1217;
+      color:#fff;
+    }
+    label {font-weight:bold;}
+
+    /* ==== Footer ==== */
+    footer {
+      text-align:center;
+      padding:20px;
+      border-top:1px solid var(--border);
+      background:#0a1217;
+      color:#aaa;
+    }
+    footer a {color:#00ffa6;text-decoration:none;margin:0 6px;}
+    footer a:hover {color:#ff3df5;}
+  </style>
+</head>
+<body>
+
+  <!-- Matrix Background -->
+  <canvas id="matrix"></canvas>
+
+  <!-- Sticker Menu -->
+  <div class="sticker-menu">
+    <button class="sticker-btn">☰</button>
+    <div class="sticker-options">
+      <a href="#about">ℹ️ About</a>
+      <a href="#services">🛡️ Services</a>
+      <a href="#portfolio">📊 Portfolio</a>
+      <a href="#contact">📞 Contact</a>
+      <button onclick="toggleTheme()">🌑 / 🌞 Theme</button>
+      <button onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section style="text-align:center;">
+    <h1>National Grade Cybersecurity</h1>
+    <p>हम साइबर युद्ध के खिलाफ सबसे आगे हैं। AI-driven security, penetration testing और digital defense.</p>
+    <button class="btn">Get Protected</button>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Us</h2>
+    <div class="grid">
+      <div class="card"><h3>Mission</h3><p>Ethical hacking, DFIR, SOC और threat intelligence.</p></div>
+      <div class="card"><h3>Values</h3><p>Zero-trust • Privacy-first • AI-assisted analysts.</p></div>
+      <div class="card"><h3>Coverage</h3><p>Gov, BFSI, Energy, Telecom, Defense • Cloud workloads.</p></div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <h2>Services</h2>
+    <div class="grid">
+      <div class="card"><h3>🔐 Penetration Testing</h3><p>Cloud, IoT & Mobile exploit simulations.</p></div>
+      <div class="card"><h3>🛰️ Threat Hunting</h3><p>MITRE ATT&CK mapping & playbooks.</p></div>
+      <div class="card"><h3>⚡ Infra Security</h3><p>ICS/SCADA Hardening, Red/Blue Team.</p></div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="stats">
+      <div class="stat"><div class="num">200+</div><div>Gov Clients</div></div>
+      <div class="stat"><div class="num">10K+</div><div>Attacks Prevented</div></div>
+      <div class="stat"><div class="num">24/7</div><div>Monitoring</div></div>
+      <div class="stat"><div class="num">99.98%</div><div>SLA Uptime</div></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form id="multiStepForm">
+      <!-- Step 1 -->
+      <div class="form-step active">
+        <label>Name:</label>
+        <input type="text" required>
+        <button type="button" class="btn next">Next</button>
+      </div>
+      <!-- Step 2 -->
+      <div class="form-step">
+        <label>Email:</label>
+        <input type="email" required>
+        <button type="button" class="btn prev">Back</button>
+        <button type="button" class="btn next">Next</button>
+      </div>
+      <!-- Step 3 -->
+      <div class="form-step">
+        <label>Message:</label>
+        <textarea required></textarea>
+        <button type="button" class="btn prev">Back</button>
+        <button type="button" class="btn next">Next</button>
+      </div>
+      <!-- Step 4 -->
+      <div class="form-step">
+        <label>Solve: <span id="captchaQ"></span></label>
+        <input type="number" id="captchaInput" required>
+        <button type="button" class="btn prev">Back</button>
+        <button type="submit" class="btn">Submit</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 DarkLight000999 — All Rights Reserved</p>
+    <div>
+      <a href="#">Privacy</a> · 
+      <a href="#">Terms</a> · 
+      <a href="#">GitHub</a>
+    </div>
+  </footer>
+
+<script>
+/* ==== Matrix Effect ==== */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+const chars="01".split("");
+const fontSize=14;
+const columns=canvas.width/fontSize;
+const drops=Array(Math.floor(columns)).fill(1);
+function draw(){
+  ctx.fillStyle="rgba(0,0,0,0.05)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#0f0";
+  ctx.font=fontSize+"px monospace";
+  for(let i=0;i<drops.length;i++){
+    const text=chars[Math.floor(Math.random()*chars.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>canvas.height && Math.random()>0.975){drops[i]=0;}
+    drops[i]++;
+  }
+}
+setInterval(draw,33);
+
+/* ==== Sticker Menu Toggle ==== */
+document.querySelector(".sticker-btn").addEventListener("click",()=>{
+  document.querySelector(".sticker-menu").classList.toggle("open");
+});
+
+/* ==== Multi-step Form ==== */
+const steps=document.querySelectorAll(".form-step");
+let currentStep=0;
+document.querySelectorAll(".next").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    steps[currentStep].classList.remove("active");
+    currentStep++;
+    steps[currentStep].classList.add("active");
+  });
+});
+document.querySelectorAll(".prev").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    steps[currentStep].classList.remove("active");
+    currentStep--;
+    steps[currentStep].classList.add("active");
+  });
+});
+
+/* ==== Captcha ==== */
+const captchaQ=document.getElementById("captchaQ");
+let a=Math.floor(Math.random()*10),b=Math.floor(Math.random()*10);
+captchaQ.textContent=`${a} + ${b} = ?`;
+document.getElementById("multiStepForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const ans=document.getElementById("captchaInput").value;
+  if(parseInt(ans)==a+b){alert("Form submitted ✅");}
+  else{alert("Captcha incorrect ❌");}
+});
+
+/* ==== Theme Toggle ==== */
+function toggleTheme(){
+  if(document.body.style.background=="white"){
+    document.body.style.background="#05070b";
+    document.body.style.color="#fff";
+  }else{
+    document.body.style.background="white";
+    document.body.style.color="#000";
+  }
+}
+
+/* ==== Logout Placeholder ==== */
+function logout(){alert("Logout Clicked! (Placeholder)");}
+</script>
+</body>
+</html>
