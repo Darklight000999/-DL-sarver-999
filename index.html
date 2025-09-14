@@ -412,7 +412,7 @@ body.light{
         phone: document.getElementById("phone").value,
         message: document.getElementById("message").value
       })
-    })
+        
     .then(response => {
       if (response.ok) {
         const msg = document.getElementById("successMsg");
@@ -424,7 +424,7 @@ body.light{
         }, 2000);
       } else {
         alert("Something went wrong, please try again.");
-      }
+        
     })
     .catch(error => alert("Error: " + error));
   });
@@ -491,7 +491,7 @@ body.light{
         phone: document.getElementById("phone").value,
         message: document.getElementById("message").value
       })
-    })
+        
     .then(response => {
       if (response.ok) {
         const msg = document.getElementById("successMsg");
@@ -502,8 +502,8 @@ body.light{
           window.location.href = "https://rkscybersecurity.netlify.app";
         }, 2000);
       } else {
-        alert("Something went wrong, please try again.");
-      }
+        alert("Something went wrong, please try again.")
+        
     })
     .catch(error => alert("Error: " + error));
   });
