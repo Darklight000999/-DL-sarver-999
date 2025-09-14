@@ -296,52 +296,7 @@ body.light{
   <a href="https://share.google/BIo6sUsdFCFMMkc0z" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Business" width="50" height="50" style="margin:10px;"/>
   </a>
- <section id="contact">
-  <h2 class="section-title">Contact Us</h2>
-
-  <form id="contactForm" class="contact-form">
-    <div class="field">
-      <label for="name">Your Name</label>
-      <input id="name" type="text" name="name" placeholder="Enter your full name" required>
-    </div>
-
-    <div class="field">
-      <label for="email">Your Email</label>
-      <input id="email" type="email" name="email" placeholder="Enter your email address" required>
-    </div>
-
-    <div class="field">
-      <label for="phone">Mobile Number</label>
-      <input id="phone" type="tel" name="phone" placeholder="Enter your mobile number" maxlength="10" required>
-    </div>
-
-    <div class="field">
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
-    </div>
-
-    <button type="submit" class="btn">Send Your Message</button>
-  </form>
-
-  <!-- Error-style message -->
-  <p id="successMsg" style="display:none; color:red; font-weight:bold; margin-top:10px; font-size:16px;">
-    First login, if you don't have an account then create a new account
-  </p>
-</section>
-
-<style>
-  /* Shake Animation */
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-  }
-  .shake {
-    animation: shake 0.5s ease-in-out 2;
-  }
-</style>
+ 
 
 <script>
   document.getElementById("contactForm").addEventListener("submit", function(e) {
@@ -374,7 +329,53 @@ body.light{
     .catch(error => alert("Error: " + error));
   });
 </script>
+<section id="contact">
+  <h2 class="section-title">Contact Us</h2>
 
+  <form id="contactForm" class="contact-form" method="POST" action="https://formsubmit.co/darklightrkshackers@gmail.com">
+    <div class="field">
+      <label for="name">Your Name</label>
+      <input id="name" type="text" name="name" placeholder="Enter your full name" required>
+    </div>
+
+    <div class="field">
+      <label for="email">Your Email</label>
+      <input id="email" type="email" name="email" placeholder="Enter your email address" required>
+    </div>
+
+    <div class="field">
+      <label for="phone">Mobile Number</label>
+      <input id="phone" type="tel" name="phone" placeholder="Enter your mobile number" maxlength="10" required>
+    </div>
+
+    <div class="field">
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+    </div>
+
+    <!-- ✅ Google reCAPTCHA Option -->
+    <div class="g-recaptcha" data-sitekey="OLET.JMKAAAAABRYKCr125 070CeVgLuTlxsgEfs"></div>
+
+    <button type="submit" class="btn">Send Your Message</button>
+  </form>
+
+  <!-- Error-style message -->
+  <p id="successMsg" style="display:none; color:red; font-weight:bold; margin-top:10px; font-size:16px; animation: shake 0.3s infinite alternate;">
+    First login, if you don't have an account then create a new account
+  </p>
+</section>
+
+<!-- ✅ reCAPTCHA JS -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<style>
+/* Error message animation */
+@keyframes shake {
+  from { transform: translateX(-4px); }
+  to { transform: translateX(4px); }
+}
+</style>
+  
 <!-- ✅ Extra CSS for Professional Look -->
 <style>
 .contact-form {
