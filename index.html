@@ -323,36 +323,7 @@ body.light{
     <button type="submit" class="btn">Send Your Message</button>
   </form>
 </section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("contactForm");
-    const phoneInput = document.getElementById("phone");
-
-    // केवल नंबर ही allow होंगे
-    phoneInput.addEventListener("input", function () {
-      this.value = this.value.replace(/[^0-9]/g, ""); 
-    });
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("contactForm");
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      window.location.replace("https://rkscybersecurity.netlify.app");
-    });
-  });
-</script>
-
-    <div class="field">
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
-    </div>
-
-    <button type="submit" class="btn">Send Your Message</button>
-  </form>
-</section>
-
+  
 <!-- ✅ Extra CSS for Professional Look -->
 <style>
 .contact-form {
