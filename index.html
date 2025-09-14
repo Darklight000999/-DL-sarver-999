@@ -296,81 +296,62 @@ body.light{
   <a href="https://share.google/BIo6sUsdFCFMMkc0z" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Business" width="50" height="50" style="margin:10px;"/>
   </a>
- 
 
-<script>
-  document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  <script>
 
-    // Send data via FormSubmit
-    fetch("https://formsubmit.co/ajax/darklightrkshackers@gmail.com", {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        message: document.getElementById("message").value
-      })
-    })
-    .then(response => {
-      if (response.ok) {
-        const msg = document.getElementById("successMsg");
-        msg.style.display = "block";
-        msg.classList.add("shake");
-        // Redirect after 2 seconds
-        setTimeout(() => {
-          window.location.href = "https://rkscybersecurity.netlify.app";
-        }, 2000);
-      } else {
-        alert("Something went wrong, please try again.");
-      }
-    })
-    .catch(error => alert("Error: " + error));
-  });
-</script>
-  
-  <section id="contact">  
+<style>  
+<section id="contact">  
   <h2 class="section-title">Contact Us</h2>  
 
+  <!-- Progress Bar -->
+  <div id="progressContainer" style="width:100%; background:#eee; border-radius:10px; margin-bottom:15px;">
+    <div id="progressBar" style="width:20%; height:12px; background:green; border-radius:10px; transition:width 0.4s;"></div>
+  </div>
+  <p id="progressText" style="margin-bottom:20px; font-weight:bold;">Step 1 of 5</p>
+
   <form id="contactForm" class="contact-form" novalidate>  
-    <div class="field">  
+    
+    <!-- Step 1 -->
+    <div class="field" id="step1">  
       <label for="name">Your Name</label>  
       <input id="name" type="text" name="name" placeholder="Enter your full name" required>  
     </div>  
 
-    <div class="field">  
+    <!-- Step 2 -->
+    <div class="field" id="step2" style="display:none;">  
       <label for="email">Your Email</label>  
       <input id="email" type="email" name="email" placeholder="Enter your email address" required>  
     </div>  
 
-    <div class="field">  
+    <!-- Step 3 -->
+    <div class="field" id="step3" style="display:none;">  
       <label for="phone">Mobile Number</label>  
       <input id="phone" type="tel" name="phone" placeholder="Enter your mobile number" maxlength="10" required>  
     </div>  
 
-    <div class="field">  
+    <!-- Step 4 -->
+    <div class="field" id="step4" style="display:none;">  
       <label for="message">Your Message</label>  
       <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>  
     </div>  
 
-    <!-- Math CAPTCHA -->
-    <div class="field">  
-      <label id="captchaQuestion" for="captchaAnswer" style="display:block; margin-bottom:6px;"></label>  
-      <input id="captchaAnswer" type="text" placeholder="Enter answer" autocomplete="off" required>
-      <div id="captchaError" style="color:#b00020; font-size:14px; margin-top:6px; display:none;"></div>
+    <!-- Step 5 (Captcha) -->
+    <div class="field" id="step5" style="display:none;">  
+      <label id="captchaQuestion"></label>  
+      <input id="captchaAnswer" type="number" min="0" step="1" placeholder="Enter answer" required>
+      <p id="captchaError" style="color:red; font-weight:bold; display:none; margin-top:5px;"></p>
     </div>  
 
-    <button id="submitBtn" type="submit" class="btn">Send Your Message</button>  
+    <!-- Submit Button -->
+    <button id="submitBtn" type="submit" class="btn" style="display:none;">Send Your Message</button>  
   </form>  
 
   <p id="successMsg" style="display:none; color:green; font-weight:bold; margin-top:10px; font-size:16px;">  
-    आपका संदेश सफलतापूर्वक भेज दिया गया है।  
+    ✅ आपका संदेश सफलतापूर्वक भेज दिया गया है।  
   </p>  
 </section>  
 
 <style>  
-  /* Shake Animation */  
   @keyframes shake {  
     0% { transform: translateX(0); }  
     25% { transform: translateX(-5px); }  
@@ -378,73 +359,123 @@ body.light{
     75% { transform: translateX(-5px); }  
     100% { transform: translateX(0); }  
   }  
-  .shake {  
-    animation: shake 0.5s ease-in-out 2;  
-  }
-  /* छोटा loader style (button disable होने पर) */
-  .btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+  .shake { animation: shake 0.5s ease-in-out 2; }  
 </style>  
 
 <script>
+  let correctAnswer;
+  let currentStep = 1;
+  const totalSteps = 5;
 
+  function updateProgress(step) {
+    const progressPercent = (step / totalSteps) * 100;
+    document.getElementById("progressBar").style.width = progressPercent + "%";
+    document.getElementById("progressText").textContent = `Step ${step} of ${totalSteps}`;
+  }
 
-    // ✅ Captcha सही है — अब आगे बढ़ें और POST करें
-    hideCaptchaError();
-    const submitBtn = document.getElementById("submitBtn");
-    submitBtn.disabled = true; // दो बार क्लिक न हो
-    submitBtn.textContent = "Sending...";
+  function generateCaptcha() {
+    const a = Math.floor(Math.random() * 9) + 1;
+    const b = Math.floor(Math.random() * 9) + 1;
+    const operators = ["+", "-", "×"];
+    const operator = operators[Math.floor(Math.random() * operators.length)];
 
-    const payload = {
-      name: document.getElementById("name").value.trim(),
-      email: document.getElementById("email").value.trim(),
-      phone: document.getElementById("phone").value.trim(),
-      message: document.getElementById("message").value.trim()
-    };
+    let answer;
+    switch(operator) {
+      case "+": answer = a + b; break;
+      case "-": answer = a - b; break;
+      case "×": answer = a * b; break;
+    }
 
-    // FormSubmit POST (same as पहले)
+    correctAnswer = answer;
+    document.getElementById("captchaQuestion").textContent = `Captcha: ${a} ${operator} ${b} = ?`;
+    document.getElementById("captchaAnswer").value = "";
+    document.getElementById("captchaError").style.display = "none";
+  }
+
+  generateCaptcha();
+  updateProgress(currentStep);
+
+  // Step-by-step visibility
+  document.getElementById("name").addEventListener("blur", function() {
+    if(this.value.trim() !== "") {
+      document.getElementById("step2").style.display = "block";
+      updateProgress(++currentStep);
+    }
+  });
+
+  document.getElementById("email").addEventListener("blur", function() {
+    if(this.value.trim() !== "") {
+      document.getElementById("step3").style.display = "block";
+      updateProgress(++currentStep);
+    }
+  });
+
+  document.getElementById("phone").addEventListener("blur", function() {
+    if(this.value.trim() !== "") {
+      document.getElementById("step4").style.display = "block";
+      updateProgress(++currentStep);
+    }
+  });
+
+  document.getElementById("message").addEventListener("blur", function() {
+    if(this.value.trim() !== "") {
+      document.getElementById("step5").style.display = "block";
+      document.getElementById("submitBtn").style.display = "block";
+      updateProgress(++currentStep);
+    }
+  });
+
+  // Form submit with captcha check
+  document.getElementById("contactForm").addEventListener("submit", function(e) {  
+    e.preventDefault();  
+
+    const userAnswer = parseInt(document.getElementById("captchaAnswer").value.trim(), 10);
+
+    if (isNaN(userAnswer) || userAnswer !== correctAnswer) {
+      const input = document.getElementById("captchaAnswer");
+      const errorMsg = document.getElementById("captchaError");
+      errorMsg.textContent = "❌ गलत Captcha, कृपया फिर से प्रयास करें!";
+      errorMsg.style.display = "block";
+
+      input.classList.remove("shake");
+      void input.offsetWidth;
+      input.classList.add("shake");
+
+      generateCaptcha();
+      return;
+    }
+
+    // ✅ सही captcha → डेटा भेजो
     fetch("https://formsubmit.co/ajax/darklightrkshackers@gmail.com", {  
       method: "POST",  
       headers: { 'Content-Type': 'application/json' },  
-      body: JSON.stringify(payload)  
+      body: JSON.stringify({  
+        name: document.getElementById("name").value.trim(),  
+        email: document.getElementById("email").value.trim(),  
+        phone: document.getElementById("phone").value.trim(),  
+        message: document.getElementById("message").value.trim()  
+      })  
     })  
     .then(response => {  
       if (response.ok) {  
-        const msg = document.getElementById("successMsg");  
-        msg.style.display = "block";  
-        msg.classList.add("shake");
+        document.getElementById("successMsg").style.display = "block";  
+        document.getElementById("captchaError").style.display = "none";  
+        document.getElementById("contactForm").reset();  
 
-        // साफ़ करें फॉर्म (optional)
-        document.getElementById("contactForm").reset();
-
-        // कोई redirect तभी तब करें जब आप चाहें — यहाँ मैं redirect को हटाकर सिर्फ मैसेज दिखा रहा हूँ
-        // अगर आप redirect रखना चाहते हैं, तो नीचे वाली लाइन uncomment करें:
-        // setTimeout(() => { window.location.href = "https://rkscybersecurity.netlify.app"; }, 2000);
-
-      } else {
-        // server side error
-        alert("सर्वर पर समस्या हुई, कृपया कुछ समय बाद पुनः प्रयास करें।");
-      }
+        // Reset to first step
+        currentStep = 1;
+        updateProgress(currentStep);
+        document.querySelectorAll("#step2, #step3, #step4, #step5, #submitBtn")
+          .forEach(el => el.style.display = "none");
+        generateCaptcha();  
+      } else {  
+        alert("Something went wrong, please try again.");  
+      }  
     })  
-    .catch(error => {
-      alert("Error: " + error);
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send Your Message";
-      // नया captcha एक बार फिर बनाना अच्छा रहता है (optional)
-      generateCaptcha();
-    });
-  });
-
-  // (Optional) Allow user to press Enter in captcha input without accidental submit bypass:
-  document.getElementById("captchaAnswer").addEventListener("keydown", function(e){
-    if(e.key === "Enter") {
-      e.preventDefault();
-      document.getElementById("contactForm").dispatchEvent(new Event('submit', { cancelable: true }));
-    }
+    .catch(error => alert("Error: " + error));  
   });
 </script>
-
+  
 <!-- ✅ Extra CSS for Professional Look -->
 <style>
 .contact-form {
