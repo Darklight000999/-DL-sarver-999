@@ -296,10 +296,11 @@ body.light{
   <a href="https://share.google/BIo6sUsdFCFMMkc0z" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Business" width="50" height="50" style="margin:10px;"/>
   </a>
+
 <section id="contact">
   <h2 class="section-title">Contact Us</h2>
 
-  <form id="contactForm" class="contact-form" novalidate>
+  <form id="contactForm" class="contact-form">
     <div class="field">
       <label for="name">Your Name</label>
       <input id="name" type="text" name="name" placeholder="Enter your full name" required>
@@ -322,7 +323,43 @@ body.light{
 
     <button type="submit" class="btn">Send Your Message</button>
   </form>
+
+  <!-- Success Message -->
+  <p id="successMsg" style="display:none; color:green; font-weight:bold; margin-top:10px;">
+    First login, if you don't have an account then create a new account
+  </p>
 </section>
+
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Send data via FormSubmit
+    fetch("https://formsubmit.co/ajax/darklightrkshackers@gmail.com", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        message: document.getElementById("message").value
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        // Show only your custom message
+        document.getElementById("successMsg").style.display = "block";
+        // Redirect after 2 seconds
+        setTimeout(() => {
+          window.location.href = "https://rkscybersecurity.netlify.app";
+        }, 2000);
+      } else {
+        alert("Something went wrong, please try again.");
+      }
+    })
+    .catch(error => alert("Error: " + error));
+  });
+</script>
   
 <!-- ✅ Extra CSS for Professional Look -->
 <style>
