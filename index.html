@@ -27,36 +27,62 @@
   --grad-5: linear-gradient(135deg, #ff8a00 0%, #ffe600 100%);
   --grad-6: linear-gradient(135deg, #ffe600 0%, #00ffa6 100%);
 
-  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(0,255,166,.12), transparent 60%),
-                radial-gradient(1200px 600px at 100% 110%, rgba(0,210,255,.10), transparent 60%);
+  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(0,255,166,.12), transparent 60%),                radial-gradient(1200px 600px at 100% 110%, rgba(0,210,255,.10), transparent 60%);
 }
-    
-[data-theme="light"] {
-/* ===== Light Theme (Neon Highlighted Pro) ===== */
+/* default (dark) theme variables */
 :root {
-  --bg:#fff200;                 /* ⚡ Neon Yellow background */
-  --text:#000000;               /* 🖤 Pure Black text */
-  --muted:#ff004c;              /* 🔴 Neon Red muted text */
-  --card1:#ffffff;              /* White bright card */
-  --card2:#ffe600;              /* ⚡ Yellow card */
-  --accent:#ff004c;             /* 🔴 Neon Red */
-  --accent-2:#ffae00;           /* 🟡 Vivid Yellow */
-  --accent-3:#ff6ec7;           /* 🌸 Neon Pink */
-  --border:rgba(255,0,76,.6);   /* Red Glow border */
+  --bg:#000000;
+  --text:#00ffe0;
+  --muted:#fffc00;
+  --card1:#0a0018;
+  --card2:#140024;
+  --accent:#00ff6a;
+  --accent-2:#00d9ff;
+  --accent-3:#ff00f5;
+  --border:rgba(255,0,230,.6);
+  --shadow:0 0 28px rgba(0,255,166,.8);
+  --chip:rgba(255,255,255,.12);
+  --grad-1: linear-gradient(135deg, #00ff6a, #00d9ff, #ff00f5, #ff8a00, #ffee00);
+  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(0,255,166,.35), transparent 70%),
+                radial-gradient(1200px 600px at 100% 110%, rgba(255,0,245,.25), transparent 70%);
+}
+
+/* CORRECT: Light theme variables scoped to the body element having data-theme="light" */
+body[data-theme="light"] {
+  --bg:#fff200;                 /* Neon Yellow background */
+  --text:#000000;               /* Pure Black text */
+  --muted:#ff004c;              /* Neon Red muted */
+  --card1:#ffffff;
+  --card2:#ffe600;
+  --accent:#ff004c;             /* Neon Red */
+  --accent-2:#ffae00;           /* Vivid Yellow */
+  --accent-3:#ff6ec7;           /* Neon Pink */
+  --border:rgba(255,0,76,.6);
   --shadow:0 0 24px rgba(255,0,76,.6);
   --chip:rgba(255,255,255,.15);
 
-  /* 🔥 Gradient highlights with glow + animation */
   --grad-1: linear-gradient(135deg, #ff004c, #ffae00, #ff6ec7);
   --grad-2: linear-gradient(135deg, #ffae00, #ff6ec7, #ff004c);
   --grad-3: linear-gradient(135deg, #ff6ec7, #ff004c, #ffae00);
-  --grad-4: linear-gradient(135deg, #ff004c, #ff6ec7, #ffae00);
-  --grad-5: linear-gradient(135deg, #ffae00, #ff004c, #ff6ec7);
-  --grad-6: linear-gradient(135deg, #ff6ec7, #ffae00, #ff004c);
 
-  /* Glowing section background */
   --section-bg: radial-gradient(1000px 600px at 10% -10%, rgba(255,0,76,.25), transparent 70%),
                 radial-gradient(1000px 600px at 100% 110%, rgba(255,174,0,.25), transparent 70%);
+}
+
+/* Optional: keep compatibility if some scripts toggle .light classname on body */
+body.light {
+  /* copy the same variables (or just set data-theme instead of class in JS) */
+  --bg:#fff200;
+  --text:#000000;
+  --muted:#ff004c;
+  --card1:#ffffff;
+  --card2:#ffe600;
+  --accent:#ff004c;
+  --accent-2:#ffae00;
+  --accent-3:#ff6ec7;
+  --border:rgba(255,0,76,.6);
+  --shadow:0 0 24px rgba(255,0,76,.6);
+  --chip:rgba(255,255,255,.15);
 }
 
 /* ✨ Neon Gradient Text */
