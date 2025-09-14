@@ -32,43 +32,62 @@
 }
     
 [data-theme="light"] {
-  /* ===== Light Theme (Neon Highlighted) ===== */
-  --bg:#ffb700;
-  --text:#111111;
-  --muted:#444444;
-  --card1:#ffffff;
-  --card2:#f7f7f7;
-  --accent:#ff004c;   /* 🔴 Neon Red */
-  --accent-2:#ffae00; /* 🟡 Vivid Yellow */
-  --accent-3:#ff6ec7; /* 🌸 Neon Pink */
-  --border:rgba(0,0,0,.15);
-  --shadow:0 12px 28px rgba(0,0,0,.15);
-  --chip:rgba(8,17,27,.08);
+/* ===== Light Theme (Neon Highlighted Pro) ===== */
+:root {
+  --bg:#fff200;                 /* ⚡ Neon Yellow background */
+  --text:#000000;               /* 🖤 Pure Black text */
+  --muted:#ff004c;              /* 🔴 Neon Red muted text */
+  --card1:#ffffff;              /* White bright card */
+  --card2:#ffe600;              /* ⚡ Yellow card */
+  --accent:#ff004c;             /* 🔴 Neon Red */
+  --accent-2:#ffae00;           /* 🟡 Vivid Yellow */
+  --accent-3:#ff6ec7;           /* 🌸 Neon Pink */
+  --border:rgba(255,0,76,.6);   /* Red Glow border */
+  --shadow:0 0 24px rgba(255,0,76,.6);
+  --chip:rgba(255,255,255,.15);
 
-  /* 🔥 Gradient highlights with animation vibes */
-  --grad-1: linear-gradient(135deg, #ff004c 0%, #ffae00 100%);
-  --grad-2: linear-gradient(135deg, #ffae00 0%, #ff6ec7 100%);
-  --grad-3: linear-gradient(135deg, #ff6ec7 0%, #ff004c 100%);
-  --grad-4: linear-gradient(135deg, #ff004c 0%, #ffae00 100%);
-  --grad-5: linear-gradient(135deg, #ffae00 0%, #ff6ec7 100%);
-  --grad-6: linear-gradient(135deg, #ff6ec7 0%, #ff004c 100%);
+  /* 🔥 Gradient highlights with glow + animation */
+  --grad-1: linear-gradient(135deg, #ff004c, #ffae00, #ff6ec7);
+  --grad-2: linear-gradient(135deg, #ffae00, #ff6ec7, #ff004c);
+  --grad-3: linear-gradient(135deg, #ff6ec7, #ff004c, #ffae00);
+  --grad-4: linear-gradient(135deg, #ff004c, #ff6ec7, #ffae00);
+  --grad-5: linear-gradient(135deg, #ffae00, #ff004c, #ff6ec7);
+  --grad-6: linear-gradient(135deg, #ff6ec7, #ffae00, #ff004c);
 
-  /* Section BG with glowing highlight */
-  --section-bg: radial-gradient(1000px 600px at 10% -10%, rgba(255,0,76,.12), transparent 60%),
-                radial-gradient(1000px 600px at 100% 110%, rgba(255,174,0,.10), transparent 60%);
+  /* Glowing section background */
+  --section-bg: radial-gradient(1000px 600px at 10% -10%, rgba(255,0,76,.25), transparent 70%),
+                radial-gradient(1000px 600px at 100% 110%, rgba(255,174,0,.25), transparent 70%);
 }
 
-/* ✨ Optional Shine Animation for Highlighted Text */
+/* ✨ Neon Gradient Text */
 .highlighted-text {
   background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shine 6s linear infinite;
+  animation: shine 5s linear infinite;
+  text-shadow: 0 0 12px rgba(255,0,76,.6), 0 0 22px rgba(255,174,0,.5);
 }
 
+/* 🔥 Shine Animation */
 @keyframes shine {
-  0% { background-position: 0% }
-  100% { background-position: 200% }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ✨ Neon Card Glow */
+.neon-box {
+  background: var(--card1);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 18px var(--accent), 0 0 35px var(--accent-2), 0 0 55px var(--accent-3);
+  transition: 0.3s;
+}
+.neon-box:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 0 28px var(--accent-3), 0 0 55px var(--accent-2), 0 0 85px var(--accent);
 }
 
 *{box-sizing:border-box}
