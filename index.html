@@ -330,11 +330,10 @@ body.light{
   });
 </script>
   
-<section id="contact">
   <section id="contact">  
   <h2 class="section-title">Contact Us</h2>  
 
-  <form id="contactForm" class="contact-form">  
+  <form id="contactForm" class="contact-form" novalidate>  
     <div class="field">  
       <label for="name">Your Name</label>  
       <input id="name" type="text" name="name" placeholder="Enter your full name" required>  
@@ -355,19 +354,175 @@ body.light{
       <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>  
     </div>  
 
-    <!-- ✅ Math CAPTCHA -->
+    <!-- Math CAPTCHA -->
     <div class="field">  
-      <label id="captchaQuestion"></label>  
-      <input id="captchaAnswer" type="text" placeholder="Enter answer" required>  
+      <label id="captchaQuestion" for="captchaAnswer" style="display:block; margin-bottom:6px;"></label>  
+      <input id="captchaAnswer" type="text" placeholder="Enter answer" autocomplete="off" required>
+      <div id="captchaError" style="color:#b00020; font-size:14px; margin-top:6px; display:none;"></div>
     </div>  
 
-    <button type="submit" class="btn">Send Your Message</button>  
+    <button id="submitBtn" type="submit" class="btn">Send Your Message</button>  
   </form>  
 
-  <p id="successMsg" style="display:none; color:red; font-weight:bold; margin-top:10px; font-size:16px;">  
-    First login, if you don't have an account then create a new account  
+  <p id="successMsg" style="display:none; color:green; font-weight:bold; margin-top:10px; font-size:16px;">  
+    आपका संदेश सफलतापूर्वक भेज दिया गया है।  
   </p>  
 </section>  
+
+<style>  
+  /* Shake Animation */  
+  @keyframes shake {  
+    0% { transform: translateX(0); }  
+    25% { transform: translateX(-5px); }  
+    50% { transform: translateX(5px); }  
+    75% { transform: translateX(-5px); }  
+    100% { transform: translateX(0); }  
+  }  
+  .shake {  
+    animation: shake 0.5s ease-in-out 2;  
+  }
+  /* छोटा loader style (button disable होने पर) */
+  .btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+</style>  
+
+<script>
+  // Random Math CAPTCHA Generate (addition, subtraction, multiplication)
+  let correctAnswer;
+  function generateCaptcha() {
+    const a = Math.floor(Math.random() * 9) + 1; // 1-9
+    const b = Math.floor(Math.random() * 9) + 1; // 1-9
+    const operators = ["+", "-", "×"];
+    const operator = operators[Math.floor(Math.random() * operators.length)];
+
+    let question = `${a} ${operator} ${b} = ?`;
+    let answer;
+    switch(operator) {
+      case "+": answer = a + b; break;
+      case "-": answer = a - b; break;
+      case "×": answer = a * b; break;
+    }
+
+    correctAnswer = answer;
+    document.getElementById("captchaQuestion").textContent = "Captcha: " + question;
+    document.getElementById("captchaAnswer").value = ""; // reset input
+    hideCaptchaError();
+  }
+
+  function showCaptchaError(msg) {
+    const el = document.getElementById("captchaError");
+    el.textContent = msg;
+    el.style.display = "block";
+    // small shake effect on input
+    const input = document.getElementById("captchaAnswer");
+    input.classList.remove('shake');
+    // reflow to restart animation
+    void input.offsetWidth;
+    input.classList.add('shake');
+  }
+
+  function hideCaptchaError() {
+    const el = document.getElementById("captchaError");
+    el.style.display = "none";
+    el.textContent = "";
+  }
+
+  generateCaptcha(); // पहले load पर captcha बनाएँ
+
+  // Utility: basic front validation for required fields (optional but helpful)
+  function basicFormValid() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    if (!name || !email || !message) {
+      alert("कृपया Name, Email और Message फ़ील्ड भरें।");
+      return false;
+    }
+    return true;
+  }
+
+  // Main submit handler
+  document.getElementById("contactForm").addEventListener("submit", function(e) {  
+    e.preventDefault();  // कभी भी ब्राउज़र को default submit न करने दें
+
+    // पहले basic validation
+    if (!basicFormValid()) return;
+
+    const userAnswerRaw = document.getElementById("captchaAnswer").value;
+    if (userAnswerRaw === null || userAnswerRaw.trim() === "") {
+      showCaptchaError("कृपया captcha का उत्तर दर्ज करें।");
+      generateCaptcha(); // नया captcha दे दें (optional)
+      return; // **यहाँ रुकें — कोई POST या redirect नहीं**
+    }
+
+    const userAnswer = parseInt(userAnswerRaw.trim(), 10);
+    if (Number.isNaN(userAnswer)) {
+      showCaptchaError("Captcha का उत्तर संख्या में होना चाहिए।");
+      generateCaptcha();
+      return; // **यहाँ रुकें**
+    }
+
+    if (userAnswer !== correctAnswer) {
+      showCaptchaError("Captcha गलत है — नया सवाल बनाया गया है। कृपया सही उत्तर दें।");
+      generateCaptcha(); // गलत होने पर नया captcha generate करें
+      return; // **यहाँ भी रुकें — कोई POST या redirect नहीं**
+    }
+
+    // ✅ Captcha सही है — अब आगे बढ़ें और POST करें
+    hideCaptchaError();
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true; // दो बार क्लिक न हो
+    submitBtn.textContent = "Sending...";
+
+    const payload = {
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      phone: document.getElementById("phone").value.trim(),
+      message: document.getElementById("message").value.trim()
+    };
+
+    // FormSubmit POST (same as पहले)
+    fetch("https://formsubmit.co/ajax/darklightrkshackers@gmail.com", {  
+      method: "POST",  
+      headers: { 'Content-Type': 'application/json' },  
+      body: JSON.stringify(payload)  
+    })  
+    .then(response => {  
+      if (response.ok) {  
+        const msg = document.getElementById("successMsg");  
+        msg.style.display = "block";  
+        msg.classList.add("shake");
+
+        // साफ़ करें फॉर्म (optional)
+        document.getElementById("contactForm").reset();
+
+        // कोई redirect तभी तब करें जब आप चाहें — यहाँ मैं redirect को हटाकर सिर्फ मैसेज दिखा रहा हूँ
+        // अगर आप redirect रखना चाहते हैं, तो नीचे वाली लाइन uncomment करें:
+        // setTimeout(() => { window.location.href = "https://rkscybersecurity.netlify.app"; }, 2000);
+
+      } else {
+        // server side error
+        alert("सर्वर पर समस्या हुई, कृपया कुछ समय बाद पुनः प्रयास करें।");
+      }
+    })  
+    .catch(error => {
+      alert("Error: " + error);
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Your Message";
+      // नया captcha एक बार फिर बनाना अच्छा रहता है (optional)
+      generateCaptcha();
+    });
+  });
+
+  // (Optional) Allow user to press Enter in captcha input without accidental submit bypass:
+  document.getElementById("captchaAnswer").addEventListener("keydown", function(e){
+    if(e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById("contactForm").dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  });
+</script>
 
 <style>  
   /* Shake Animation */  
