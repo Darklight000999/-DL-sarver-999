@@ -344,6 +344,23 @@ body.light{
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("contactForm");
+    const phoneInput = document.getElementById("phone");
+
+    // केवल नंबर ही allow होंगे
+    phoneInput.addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9]/g, ""); 
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); 
+      window.location.replace("https://rkscybersecurity.netlify.app");
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contactForm");
     form.addEventListener("submit", function (e) {
       e.preventDefault(); 
       window.location.replace("https://rkscybersecurity.netlify.app");
