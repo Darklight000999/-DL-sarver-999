@@ -30,30 +30,45 @@
   --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(0,255,166,.12), transparent 60%),
                 radial-gradient(1200px 600px at 100% 110%, rgba(0,210,255,.10), transparent 60%);
 }
-
-[data-theme="light"]{
-  /* ===== Light Theme (Clean Vivid) ===== */
-  --bg:#f6f9fb;
-  --text:#0e1322;
-  --muted:#425b76;
+    
+[data-theme="light"] {
+  /* ===== Light Theme (Neon Highlighted) ===== */
+  --bg:#fdfdfd;
+  --text:#111111;
+  --muted:#444444;
   --card1:#ffffff;
-  --card2:#eef6ff;
-  --accent:#06c287;
-  --accent-2:#0aa7dd;
-  --accent-3:#b832ff;
-  --border:rgba(0,0,0,.10);
-  --shadow:0 10px 26px rgba(9,30,66,.12);
-  --chip:rgba(8,17,27,.06);
+  --card2:#f7f7f7;
+  --accent:#ff004c;   /* 🔴 Neon Red */
+  --accent-2:#ffae00; /* 🟡 Vivid Yellow */
+  --accent-3:#ff6ec7; /* 🌸 Neon Pink */
+  --border:rgba(0,0,0,.15);
+  --shadow:0 12px 28px rgba(0,0,0,.15);
+  --chip:rgba(8,17,27,.08);
 
-  --grad-1: linear-gradient(135deg, #06c287 0%, #0aa7dd 100%);
-  --grad-2: linear-gradient(135deg, #0aa7dd 0%, #6c63ff 100%);
-  --grad-3: linear-gradient(135deg, #6c63ff 0%, #b832ff 100%);
-  --grad-4: linear-gradient(135deg, #b832ff 0%, #ff7a1a 100%);
-  --grad-5: linear-gradient(135deg, #ff7a1a 0%, #ffd21f 100%);
-  --grad-6: linear-gradient(135deg, #ffd21f 0%, #06c287 100%);
+  /* 🔥 Gradient highlights with animation vibes */
+  --grad-1: linear-gradient(135deg, #ff004c 0%, #ffae00 100%);
+  --grad-2: linear-gradient(135deg, #ffae00 0%, #ff6ec7 100%);
+  --grad-3: linear-gradient(135deg, #ff6ec7 0%, #ff004c 100%);
+  --grad-4: linear-gradient(135deg, #ff004c 0%, #ffae00 100%);
+  --grad-5: linear-gradient(135deg, #ffae00 0%, #ff6ec7 100%);
+  --grad-6: linear-gradient(135deg, #ff6ec7 0%, #ff004c 100%);
 
-  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(6,194,135,.12), transparent 60%),
-                radial-gradient(1200px 600px at 100% 110%, rgba(10,167,221,.10), transparent 60%);
+  /* Section BG with glowing highlight */
+  --section-bg: radial-gradient(1000px 600px at 10% -10%, rgba(255,0,76,.12), transparent 60%),
+                radial-gradient(1000px 600px at 100% 110%, rgba(255,174,0,.10), transparent 60%);
+}
+
+/* ✨ Optional Shine Animation for Highlighted Text */
+.highlighted-text {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 6s linear infinite;
+}
+
+@keyframes shine {
+  0% { background-position: 0% }
+  100% { background-position: 200% }
 }
 
 *{box-sizing:border-box}
