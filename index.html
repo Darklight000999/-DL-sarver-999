@@ -409,16 +409,17 @@ body.light{
   });
 </script>
   
-<!-- ✅ Extra CSS for Professional Look -->
+<!-- ✅ Dark Theme Contact Form with Yellow & Red Highlights -->
 <style>
 .contact-form {
   max-width: 500px;
   margin: 30px auto;
   padding: 20px;
-  background: #f9f9f9;
+  background: #0f172a; /* Dark background */
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+  font-family: "Poppins", sans-serif;
+  color: #facc15; /* Default text yellow */
 }
 
 .contact-form .field {
@@ -428,41 +429,55 @@ body.light{
 .contact-form label {
   font-weight: bold;
   display: block;
-  margin-bottom: 5x;
-  color: #333;
+  margin-bottom: 5px;
+  color: #facc15; /* Yellow labels */
+  text-shadow: 0 0 5px #facc15, 0 0 10px #facc15;
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #f87171; /* Red border */
   border-radius: 8px;
   font-size: 14px;
-  transition: border 0.2s ease-in-out;
+  background: #1e293b;
+  color: #facc15; /* Yellow input text */
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: #007BFF;
+  border-color: #facc15;
+  box-shadow: 0 0 10px #facc15, 0 0 20px #f87171;
   outline: none;
 }
 
 .contact-form .btn {
   width: 100%;
-  background: #007BFF;
-  color: white;
+  background: linear-gradient(90deg, #facc15, #f87171, #facc15);
+  background-size: 300% 300%;
+  color: #0f172a;
   padding: 12px;
   font-size: 16px;
   font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: transform 0.3s;
+  animation: gradientMove 5s ease infinite;
 }
 
 .contact-form .btn:hover {
-  background: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #facc15, 0 0 25px #f87171;
+}
+
+/* Button Gradient Animation */
+@keyframes gradientMove {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
 }
 </style>
 </section>
