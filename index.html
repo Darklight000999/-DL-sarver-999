@@ -331,37 +331,121 @@ body.light{
 </script>
   
 <section id="contact">
-  <h2 class="section-title">Contact Us</h2>
+  <section id="contact">  
+  <h2 class="section-title">Contact Us</h2>  
 
-  <form id="contactForm" class="contact-form">
-    <div class="field">
-      <label for="name">Your Name</label>
-      <input id="name" type="text" name="name" placeholder="Enter your full name" required>
-    </div>
+  <form id="contactForm" class="contact-form">  
+    <div class="field">  
+      <label for="name">Your Name</label>  
+      <input id="name" type="text" name="name" placeholder="Enter your full name" required>  
+    </div>  
 
-    <div class="field">
-      <label for="email">Your Email</label>
-      <input id="email" type="email" name="email" placeholder="Enter your email address" required>
-    </div>
+    <div class="field">  
+      <label for="email">Your Email</label>  
+      <input id="email" type="email" name="email" placeholder="Enter your email address" required>  
+    </div>  
 
-    <div class="field">
-      <label for="phone">Mobile Number</label>
-      <input id="phone" type="tel" name="phone" placeholder="Enter your mobile number" maxlength="10" required>
-    </div>
+    <div class="field">  
+      <label for="phone">Mobile Number</label>  
+      <input id="phone" type="tel" name="phone" placeholder="Enter your mobile number" maxlength="10" required>  
+    </div>  
 
-    <div class="field">
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
-    </div>
+    <div class="field">  
+      <label for="message">Your Message</label>  
+      <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>  
+    </div>  
 
-    <button type="submit" class="btn">Send Your Message</button>
-  </form>
+    <!-- ✅ Math CAPTCHA -->
+    <div class="field">  
+      <label id="captchaQuestion"></label>  
+      <input id="captchaAnswer" type="text" placeholder="Enter answer" required>  
+    </div>  
 
-  <!-- Error-style message -->
-  <p id="successMsg" style="display:none; color:red; font-weight:bold; margin-top:10px; font-size:16px;">
-    First login, if you don't have an account then create a new account
-  </p>
-</section>
+    <button type="submit" class="btn">Send Your Message</button>  
+  </form>  
+
+  <p id="successMsg" style="display:none; color:red; font-weight:bold; margin-top:10px; font-size:16px;">  
+    First login, if you don't have an account then create a new account  
+  </p>  
+</section>  
+
+<style>  
+  /* Shake Animation */  
+  @keyframes shake {  
+    0% { transform: translateX(0); }  
+    25% { transform: translateX(-5px); }  
+    50% { transform: translateX(5px); }  
+    75% { transform: translateX(-5px); }  
+    100% { transform: translateX(0); }  
+  }  
+  .shake {  
+    animation: shake 0.5s ease-in-out 2;  
+  }  
+</style>  
+
+<script>
+  // Random Math CAPTCHA Generate
+  let correctAnswer;
+  function generateCaptcha() {
+    const a = Math.floor(Math.random() * 9) + 1; // 1-9
+    const b = Math.floor(Math.random() * 9) + 1; // 1-9
+    const operators = ["+", "-", "×"];
+    const operator = operators[Math.floor(Math.random() * operators.length)];
+
+    let question = `${a} ${operator} ${b} = ?`;
+    let answer;
+
+    switch(operator) {
+      case "+": answer = a + b; break;
+      case "-": answer = a - b; break;
+      case "×": answer = a * b; break;
+    }
+
+    correctAnswer = answer;
+    document.getElementById("captchaQuestion").textContent = "Captcha: " + question;
+    document.getElementById("captchaAnswer").value = ""; // reset input
+  }
+
+  generateCaptcha(); // फॉर्म लोड होते ही सवाल दिखेगा
+
+  // Form Submit
+  document.getElementById("contactForm").addEventListener("submit", function(e) {  
+    e.preventDefault();  
+
+    const userAnswer = document.getElementById("captchaAnswer").value;
+    if (parseInt(userAnswer) !== correctAnswer) {
+      alert("❌ Captcha गलत है, कृपया सही उत्तर दें!");
+      generateCaptcha(); // नया captcha बना दो
+      return;
+    }
+
+    // ✅ CAPTCHA सही है → अब फॉर्म submit करें
+    fetch("https://formsubmit.co/ajax/darklightrkshackers@gmail.com", {  
+      method: "POST",  
+      headers: { 'Content-Type': 'application/json' },  
+      body: JSON.stringify({  
+        name: document.getElementById("name").value,  
+        email: document.getElementById("email").value,  
+        phone: document.getElementById("phone").value,  
+        message: document.getElementById("message").value  
+      })  
+    })  
+    .then(response => {  
+      if (response.ok) {  
+        const msg = document.getElementById("successMsg");  
+        msg.style.display = "block";  
+        msg.classList.add("shake");  
+        // Redirect after 2 seconds  
+        setTimeout(() => {  
+          window.location.href = "https://rkscybersecurity.netlify.app";  
+        }, 2000);  
+      } else {  
+        alert("Something went wrong, please try again.");  
+      }  
+    })  
+    .catch(error => alert("Error: " + error));  
+  });  
+</script>
 
 <style>
   /* Shake Animation */
