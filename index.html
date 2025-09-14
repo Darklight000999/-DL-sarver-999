@@ -296,8 +296,7 @@ body.light{
   <a href="https://share.google/BIo6sUsdFCFMMkc0z" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Business" width="50" height="50" style="margin:10px;"/>
   </a>
-
-<section id="contact">
+ <section id="contact">
   <h2 class="section-title">Contact Us</h2>
 
   <form id="contactForm" class="contact-form">
@@ -324,11 +323,25 @@ body.light{
     <button type="submit" class="btn">Send Your Message</button>
   </form>
 
-  <!-- Success Message -->
-  <p id="successMsg" style="display:none; color:green; font-weight:bold; margin-top:10px;">
+  <!-- Error-style message -->
+  <p id="successMsg" style="display:none; color:red; font-weight:bold; margin-top:10px; font-size:16px;">
     First login, if you don't have an account then create a new account
   </p>
 </section>
+
+<style>
+  /* Shake Animation */
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  .shake {
+    animation: shake 0.5s ease-in-out 2;
+  }
+</style>
 
 <script>
   document.getElementById("contactForm").addEventListener("submit", function(e) {
@@ -347,8 +360,9 @@ body.light{
     })
     .then(response => {
       if (response.ok) {
-        // Show only your custom message
-        document.getElementById("successMsg").style.display = "block";
+        const msg = document.getElementById("successMsg");
+        msg.style.display = "block";
+        msg.classList.add("shake");
         // Redirect after 2 seconds
         setTimeout(() => {
           window.location.href = "https://rkscybersecurity.netlify.app";
@@ -360,7 +374,7 @@ body.light{
     .catch(error => alert("Error: " + error));
   });
 </script>
-  
+
 <!-- ✅ Extra CSS for Professional Look -->
 <style>
 .contact-form {
