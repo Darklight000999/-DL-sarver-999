@@ -451,7 +451,7 @@ body.light{
       const msg = document.getElementById("successMsg");
       if (response.ok) {
         msg.style.display = "block";
-        msg.textContent = "Please login first, you are being redirected to the login page ! Loading...";
+        msg.textContent = "Please login first, you are beting redirected to the login page ! Loading...";
         msg.style.color = "#ff0000";
         msg.classList.add("shake");
         setTimeout(() => {
@@ -595,18 +595,6 @@ body.light{
     }
   }
 </style>
-
-<div id="adminPanel">
-  <h2>🔐 Admin Control Center</h2>
-  <p>Welcome, Super Admin. Manage DarkLight NGC operations securely.</p>
-  <button class="btn" onclick="logout()">Logout</button>
-</div>
-
-<div id="userPanel">
-  <h2>👤 Secure Client Portal</h2>
-  <p>Welcome to your dashboard. Access reports, alerts and monitoring data here.</p>
-  <button class="btn" onclick="logout()">Logout</button>
-</div>
 
   </main>  <footer>
     <p>© 2025 DarkLight000999 — National Grade Cybersecurity Agency | All Rights Reserved</p>
