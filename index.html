@@ -7,33 +7,34 @@
   <link rel="icon" href="1000058324.png" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    :root{
+    :root{  
       /* ===== Dark Theme (Vivid Cyber) ===== */
-      --bg:#05070b;                 /* page bg */
-      --text:#f4fff6;               /* primary text */
-      --muted:#a9f7e1;              /* secondary text */
-      --card1:#0a1217;              /* glass layers */
-      --card2:#0c0f24;
-      --accent:#00ffa6;             /* neon green */
-      --accent-2:#00d2ff;           /* neon cyan */
-      --accent-3:#ff3df5;           /* neon magenta */
-      --border:rgba(0,255,166,.35);
-      --shadow:0 0 24px rgba(0,255,166,.22);
-      --chip:rgba(255,255,255,.08);/* Rainbow accents for sections/cards */
-  --grad-1: linear-gradient(135deg, #00ffa6 0%, #00d2ff 100%);
-  --grad-2: linear-gradient(135deg, #00d2ff 0%, #7c4dff 100%);
-  --grad-3: linear-gradient(135deg, #7c4dff 0%, #ff3df5 100%);
-  --grad-4: linear-gradient(135deg, #ff3df5 0%, #ff8a00 100%);
-  --grad-5: linear-gradient(135deg, #ff8a00 0%, #ffe600 100%);
-  --grad-6: linear-gradient(135deg, #ffe600 0%, #00ffa6 100%);
+      --bg: #05070b;
+      --text: #f4fff6;
+      --muted: #a9f7e1;
+      --card1: #0a1217;
+      --card2: #0c0f24;
+      --accent: #00ffa6;
+      --accent-2: #00d2ff;
+      --accent-3: #ff3df5;
+      --border: rgba(0, 255, 166, 0.35);
+      --shadow: 0 0 24px rgba(0, 255, 166, 0.22);
+      --chip: rgba(255, 255, 255, 0.08);
 
-  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(0,255,166,.12), transparent 60%),
-                radial-gradient(1200px 600px at 100% 110%, rgba(0,210,255,.10), transparent 60%);
+      --grad-1: linear-gradient(135deg, #00ffa6 0%, #00d2ff 100%);
+      --grad-2: linear-gradient(135deg, #00d2ff 0%, #7c4dff 100%);
+      --grad-3: linear-gradient(135deg, #7c4dff 0%, #ff3df5 100%);
+      --grad-4: linear-gradient(135deg, #ff3df5 0%, #ff8a00 100%);
+      --grad-5: linear-gradient(135deg, #ff8a00 0%, #ffe600 100%);
+      --grad-6: linear-gradient(135deg, #ffe600 0%, #00ffa6 100%);
+
+      --section-bg:
+        radial-gradient(1200px 600px at 10% -10%, rgba(0, 255, 166, 0.12), transparent 60%),
+        radial-gradient(1200px 600px at 100% 110%, rgba(0, 210, 255, 0.10), transparent 60%);
     }
 
-[data-theme="light"]{
-   /* ===== Light Theme (Clean Vivid) ===== */
     [data-theme="light"] {
+      /* ===== Light Theme (Clean Vivid) ===== */
       --bg: #f6f9fb;
       --text: #0e1322;
       --muted: #425b76;
@@ -53,8 +54,76 @@
       --grad-5: linear-gradient(135deg, #ff7a1a 0%, #ffd21f 100%);
       --grad-6: linear-gradient(135deg, #ffd21f 0%, #06c287 100%);
 
-      --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(6, 194, 135, .12), transparent 60%),
-        radial-gradient(1200px 600px at 100% 110%, rgba(10, 167, 221, .10), transparent 60%);
+      --section-bg:
+        radial-gradient(1200px 600px at 10% -10%, rgba(6, 194, 135, 0.12), transparent 60%),
+        radial-gradient(1200px 600px at 100% 110%, rgba(10, 167, 221, 0.10), transparent 60%);
+    }
+
+    /* ========== Basic Styles ========== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      background-image: var(--section-bg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      transition: background 0.5s ease, color 0.3s ease;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 4rem auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card1);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      width: 100%;
+      max-width: 600px;
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px var(--accent);
+    }
+
+    .btn-toggle {
+      background: var(--grad-1);
+      color: #000;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn-toggle:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 0 12px var(--accent-2);
+    }
+
+    .gradient-text {
+      background: var(--grad-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
     }
 
 *{box-sizing:border-box}
