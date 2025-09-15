@@ -273,7 +273,7 @@ body.light{
       <a href="#portfolio" onclick="closeDrawer()">Portfolio</a>
       <a href="#contact" onclick="closeDrawer()">Contact</a>
       <button class="btn" style="margin:10px 8px" onclick="logout()">Logout</button>
-      <button class="btn-outline" style="margin:6px 8px" onclick="toggleTheme()" id="drawerTheme">🌑 / 🌞</button>
+      <button class="btn-outline" style="margin:6px 8px" onclick="toggleTheme()" id="drawerTheme">🌞 / 🌑</button>
     </nav>
   </aside>
   <div id="scrim" class="scrim" onclick="closeDrawer()" aria-hidden="true"></div>  <!-- Header -->  <header>
@@ -623,9 +623,9 @@ body.light{
     function applyThemeIcon(){
       const isLight = body.getAttribute('data-theme')==='light';
       document.getElementById('headerTheme')?.setAttribute('title', isLight?'Dark':'Light');
-      document.getElementById('headerTheme')?.replaceChildren(document.createTextNode(isLight?'🌞':'🌑'));
-      document.getElementById('footerTheme')?.replaceChildren(document.createTextNode(isLight?'🌞':'🌑'));
-      document.getElementById('drawerTheme')?.replaceChildren(document.createTextNode(isLight?'🌞':'🌑'));
+      document.getElementById('headerTheme')?.replaceChildren(document.createTextNode(isLight?'🌑':'🌞'));
+      document.getElementById('footerTheme')?.replaceChildren(document.createTextNode(isLight?'🌑':'🌞'));
+      document.getElementById('drawerTheme')?.replaceChildren(document.createTextNode(isLight?'🌑':'🌞'));
     }
     function setTheme(mode){ body.setAttribute('data-theme', mode); localStorage.setItem(THEME_KEY, mode); applyThemeIcon(); }
     function toggleTheme(){ const mode = body.getAttribute('data-theme')==='light'?'dark':'light'; setTheme(mode); }
